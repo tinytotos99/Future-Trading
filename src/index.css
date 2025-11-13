@@ -1,0 +1,137 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 245 60% 97%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 189 95% 52%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 280 65% 60%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 280 65% 60%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 210 40% 98%;
+
+    --success: 142 76% 36%;
+    --success-foreground: 210 40% 98%;
+
+    --long: 189 95% 52%;
+    --long-foreground: 210 40% 98%;
+
+    --short: 0 72% 51%;
+    --short-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 189 95% 52%;
+
+    --chart-1: 189 95% 52%;
+    --chart-2: 142 76% 36%;
+    --chart-3: 0 72% 51%;
+    --chart-4: 45 93% 47%;
+    --chart-5: 280 65% 60%;
+
+    --radius: 0.5rem;
+
+    --gradient-long: linear-gradient(135deg, hsl(189 95% 52% / 0.2), hsl(142 76% 36% / 0.1));
+    --gradient-short: linear-gradient(135deg, hsl(0 72% 51% / 0.2), hsl(45 93% 47% / 0.1));
+    --gradient-card: linear-gradient(135deg, hsl(245 60% 98%), hsl(189 95% 97%));
+    --gradient-hero: linear-gradient(135deg, hsl(189 95% 52% / 0.1), hsl(280 65% 60% / 0.1), hsl(0 72% 51% / 0.1));
+    
+    --shadow-glow: 0 0 40px hsl(189 95% 52% / 0.3);
+    --shadow-card: 0 8px 30px hsl(189 95% 52% / 0.15);
+  }
+
+  .dark {
+    --background: 235 35% 12%;
+    --foreground: 210 40% 98%;
+
+    --card: 235 30% 15%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 235 30% 18%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 189 95% 52%;
+    --primary-foreground: 220 18% 8%;
+
+    --secondary: 280 65% 60%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 235 25% 25%;
+    --muted-foreground: 210 20% 70%;
+
+    --accent: 280 65% 60%;
+    --accent-foreground: 220 18% 8%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 210 40% 98%;
+
+    --success: 142 76% 36%;
+    --success-foreground: 210 40% 98%;
+
+    --long: 189 95% 52%;
+    --long-foreground: 220 18% 8%;
+
+    --short: 0 72% 51%;
+    --short-foreground: 210 40% 98%;
+
+    --border: 235 25% 25%;
+    --input: 235 25% 22%;
+    --ring: 189 95% 52%;
+
+    --gradient-long: linear-gradient(135deg, hsl(189 95% 52% / 0.25), hsl(142 76% 36% / 0.15));
+    --gradient-short: linear-gradient(135deg, hsl(0 72% 51% / 0.25), hsl(45 93% 47% / 0.15));
+    --gradient-card: linear-gradient(135deg, hsl(235 30% 16%), hsl(235 35% 14%));
+    --gradient-hero: linear-gradient(135deg, hsl(189 95% 52% / 0.15), hsl(280 65% 60% / 0.15), hsl(0 72% 51% / 0.15));
+    
+    --shadow-glow: 0 0 50px hsl(189 95% 52% / 0.4);
+    --shadow-card: 0 8px 40px hsl(189 95% 52% / 0.25);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  .font-mono-numbers {
+    font-variant-numeric: tabular-nums;
+    font-family: ui-monospace, 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Menlo, Consolas, monospace;
+    letter-spacing: -0.05em;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}

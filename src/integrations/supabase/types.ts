@@ -14,7 +14,84 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      trade_logs_m2k: {
+        Row: {
+          id: string
+          trade_date: string
+          pnl: number
+          order_size: number
+          price: number
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          trade_date: string
+          pnl: number
+          order_size: number
+          price: number
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          trade_date?: string
+          pnl?: number
+          order_size?: number
+          price?: number
+          created_at?: string
+        }
+      }
+      trade_logs_mes: {
+        Row: {
+          id: string
+          trade_date: string
+          pnl: number
+          order_size: number
+          price: number
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          trade_date: string
+          pnl: number
+          order_size: number
+          price: number
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          trade_date?: string
+          pnl?: number
+          order_size?: number
+          price?: number
+          created_at?: string
+        }
+      }
+      trade_logs_mnq: {
+        Row: {
+          id: string
+          trade_date: string
+          pnl: number
+          order_size: number
+          price: number
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          trade_date: string
+          pnl: number
+          order_size: number
+          price: number
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          trade_date?: string
+          pnl?: number
+          order_size?: number
+          price?: number
+          created_at?: string
+        }
+      }
     }
     Views: {
       [_ in never]: never

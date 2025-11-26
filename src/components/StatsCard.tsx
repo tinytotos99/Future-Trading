@@ -25,7 +25,7 @@ export const StatsCard = ({ title, value, icon: Icon, trend, prefix, suffix }: S
             </p>
           )}
         </div>
-        <div className="p-3 bg-secondary rounded-lg">
+        <div className="p-3 bg-primary/10 rounded-lg">
           <Icon className="w-6 h-6 text-primary" />
         </div>
       </div>

@@ -21,6 +21,7 @@ export type Database = {
           pnl: number
           order_size: number
           price: number
+          balance: number
           created_at: string
         }
         Insert: {
@@ -29,6 +30,7 @@ export type Database = {
           pnl: number
           order_size: number
           price: number
+          balance: number
           created_at?: string
         }
         Update: {
@@ -37,6 +39,7 @@ export type Database = {
           pnl?: number
           order_size?: number
           price?: number
+          balance?: number
           created_at?: string
         }
       }
@@ -47,6 +50,7 @@ export type Database = {
           pnl: number
           order_size: number
           price: number
+          balance: number
           created_at: string
         }
         Insert: {
@@ -55,6 +59,7 @@ export type Database = {
           pnl: number
           order_size: number
           price: number
+          balance: number
           created_at?: string
         }
         Update: {
@@ -63,6 +68,7 @@ export type Database = {
           pnl?: number
           order_size?: number
           price?: number
+          balance?: number
           created_at?: string
         }
       }
@@ -73,6 +79,7 @@ export type Database = {
           pnl: number
           order_size: number
           price: number
+          balance: number
           created_at: string
         }
         Insert: {
@@ -81,6 +88,7 @@ export type Database = {
           pnl: number
           order_size: number
           price: number
+          balance: number
           created_at?: string
         }
         Update: {
@@ -89,7 +97,34 @@ export type Database = {
           pnl?: number
           order_size?: number
           price?: number
+          balance?: number
           created_at?: string
+        }
+      }
+      contact_messages: {
+        Row: {
+          id: string
+          name: string
+          email: string
+          message: string
+          created_at: string
+          read: boolean
+        }
+        Insert: {
+          id?: string
+          name: string
+          email: string
+          message: string
+          created_at?: string
+          read?: boolean
+        }
+        Update: {
+          id?: string
+          name?: string
+          email?: string
+          message?: string
+          created_at?: string
+          read?: boolean
         }
       }
     }

@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { TradingChart } from "@/components/TradingChart";
 import { TradeNotification } from "@/components/TradeNotification";
 import { StatsCard } from "@/components/StatsCard";
 import { TradesTable } from "@/components/TradesTable";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { Activity, DollarSign, TrendingUp, Radio, LogOut } from "lucide-react";
+import { Activity, DollarSign, TrendingUp, Radio, LogOut, LayoutDashboard, FileText } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 
@@ -35,6 +35,7 @@ const mockTrades = [
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { toast } = useToast();
   const [user, setUser] = useState<any>(null);
   const [chartData2K] = useState(generateChartData("2K"));
@@ -73,18 +74,36 @@ const Dashboard = () => {
   if (!user) return null;
 
   return (
-    <div className="min-h-screen bg-background p-6">
-      {/* Header */}
-      <header className="mb-8">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-4xl font-bold text-foreground mb-2">Trading Platform</h1>
-            <p className="text-muted-foreground flex items-center gap-2">
-              <Radio className="w-4 h-4 text-success animate-pulse" />
-              Connected to Telegram & TradeStation
-            </p>
-          </div>
-          <div className="flex items-center gap-3">
+    <div className="min-h-screen flex flex-col bg-background">
+      {/* Header with Navigation */}
+      <header className="border-b sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+          <Link to="/dashboard">
+            <h1 className="text-xl font-bold text-primary cursor-pointer hover:opacity-80 transition-opacity">
+              TradeStation Nexus
+            </h1>
+          </Link>
+          <div className="flex items-center gap-4">
+            <nav className="flex items-center gap-2">
+              <Button
+                variant={location.pathname === "/dashboard" ? "default" : "ghost"}
+                size="sm"
+                onClick={() => navigate("/dashboard")}
+                className="flex items-center gap-2"
+              >
+                <LayoutDashboard className="h-4 w-4" />
+                Dashboard
+              </Button>
+              <Button
+                variant={location.pathname === "/logs" ? "default" : "ghost"}
+                size="sm"
+                onClick={() => navigate("/logs")}
+                className="flex items-center gap-2"
+              >
+                <FileText className="h-4 w-4" />
+                Logs
+              </Button>
+            </nav>
             <div className="flex items-center gap-2 px-4 py-2 bg-gradient-card border border-border rounded-lg">
               <div className="w-2 h-2 bg-success rounded-full animate-pulse"></div>
               <span className="text-sm font-medium text-foreground">Live</span>
@@ -97,33 +116,38 @@ const Dashboard = () => {
         </div>
       </header>
 
-      {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <StatsCard title="Total P&L" value="1,234.50" prefix="$" icon={DollarSign} trend={12.5} />
-        <StatsCard title="Win Rate" value="68.5" prefix="" icon={TrendingUp} trend={2.3} />
-        <StatsCard title="Active Trades" value="3" icon={Activity} />
-        <StatsCard title="Today's Trades" value="12" icon={Activity} />
-      </div>
+      {/* Main Content */}
+      <main className="flex-1 p-6">
+        <div className="max-w-[1400px] mx-auto">
+          {/* Stats Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <StatsCard title="Total P&L" value="1,234.50" prefix="$" icon={DollarSign} trend={12.5} />
+            <StatsCard title="Win Rate" value="68.5" prefix="" icon={TrendingUp} trend={2.3} />
+            <StatsCard title="Active Trades" value="3" icon={Activity} />
+            <StatsCard title="Today's Trades" value="12" icon={Activity} />
+          </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-        {/* Recent Notifications */}
-        <div className="lg:col-span-1 space-y-4">
-          <h2 className="text-2xl font-bold text-foreground mb-4">Live Signals</h2>
-          {mockNotifications.map((notification) => (
-            <TradeNotification key={notification.id} {...notification} />
-          ))}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            {/* Recent Notifications */}
+            <div className="lg:col-span-1 space-y-4">
+              <h2 className="text-2xl font-bold text-foreground mb-4">Live Signals</h2>
+              {mockNotifications.map((notification) => (
+                <TradeNotification key={notification.id} {...notification} />
+              ))}
+            </div>
+
+            {/* Charts */}
+            <div className="lg:col-span-2 space-y-6">
+              <TradingChart symbol="2K" data={chartData2K} />
+              <TradingChart symbol="MES" data={chartDataMES} />
+              <TradingChart symbol="MNQ" data={chartDataMNQ} />
+            </div>
+          </div>
+
+          {/* Trades Table */}
+          <TradesTable trades={mockTrades} />
         </div>
-
-        {/* Charts */}
-        <div className="lg:col-span-2 space-y-6">
-          <TradingChart symbol="2K" data={chartData2K} />
-          <TradingChart symbol="MES" data={chartDataMES} />
-          <TradingChart symbol="MNQ" data={chartDataMNQ} />
-        </div>
-      </div>
-
-      {/* Trades Table */}
-      <TradesTable trades={mockTrades} />
+      </main>
     </div>
   );
 };

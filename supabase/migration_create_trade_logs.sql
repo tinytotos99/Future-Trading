@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS public.trade_logs_m2k (
     pnl NUMERIC NOT NULL,
     order_size NUMERIC NOT NULL,
     price NUMERIC NOT NULL,
+    balance NUMERIC NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
@@ -15,6 +16,7 @@ CREATE TABLE IF NOT EXISTS public.trade_logs_mes (
     pnl NUMERIC NOT NULL,
     order_size NUMERIC NOT NULL,
     price NUMERIC NOT NULL,
+    balance NUMERIC NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
@@ -25,6 +27,7 @@ CREATE TABLE IF NOT EXISTS public.trade_logs_mnq (
     pnl NUMERIC NOT NULL,
     order_size NUMERIC NOT NULL,
     price NUMERIC NOT NULL,
+    balance NUMERIC NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 

@@ -3,7 +3,20 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { TrendingUp, Shield, Zap, ArrowRight, Users, BarChart3, DollarSign, Mail, Send, MessageCircle, MessageSquare, Github } from 'lucide-react';
+import {
+  TrendingUp,
+  Shield,
+  Zap,
+  ArrowRight,
+  Users,
+  BarChart3,
+  DollarSign,
+  Mail,
+  Send,
+  MessageCircle,
+  MessageSquare,
+  Github,
+} from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { TradingChart } from '@/components/TradingChart';
@@ -21,38 +34,38 @@ interface SymbolData {
 }
 
 const Index = () => {
-  const [dataM2K, setDataM2K] = useState<SymbolData>({ 
-    chartData: [], 
-    totalPnl: 0, 
-    totalTrades: 0, 
+  const [dataM2K, setDataM2K] = useState<SymbolData>({
+    chartData: [],
+    totalPnl: 0,
+    totalTrades: 0,
     winRate: '0.0',
     totalPnlPercent: '0.0',
-    startedDate: ''
+    startedDate: '',
   });
-  const [dataMES, setDataMES] = useState<SymbolData>({ 
-    chartData: [], 
-    totalPnl: 0, 
-    totalTrades: 0, 
+  const [dataMES, setDataMES] = useState<SymbolData>({
+    chartData: [],
+    totalPnl: 0,
+    totalTrades: 0,
     winRate: '0.0',
     totalPnlPercent: '0.0',
-    startedDate: ''
+    startedDate: '',
   });
-  const [dataMNQ, setDataMNQ] = useState<SymbolData>({ 
-    chartData: [], 
-    totalPnl: 0, 
-    totalTrades: 0, 
+  const [dataMNQ, setDataMNQ] = useState<SymbolData>({
+    chartData: [],
+    totalPnl: 0,
+    totalTrades: 0,
     winRate: '0.0',
     totalPnlPercent: '0.0',
-    startedDate: ''
+    startedDate: '',
   });
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
-  
+
   // Contact form state
   const [contactForm, setContactForm] = useState({
     name: '',
     email: '',
-    message: ''
+    message: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -63,18 +76,18 @@ const Index = () => {
   const loadSymbolData = async (symbol: Symbol): Promise<SymbolData> => {
     // Fetch last 3 months of data for chart
     const tradeLogs = await fetchTradeLogs(symbol, undefined, 3);
-    
+
     // Fetch all historical data for overall stats
     const allTradeLogs = await fetchAllTradeLogs(symbol);
 
     if (tradeLogs.length === 0) {
-      return { 
-        chartData: [], 
-        totalPnl: 0, 
-        totalTrades: 0, 
+      return {
+        chartData: [],
+        totalPnl: 0,
+        totalTrades: 0,
         winRate: '0.0',
         totalPnlPercent: '0.0',
-        startedDate: ''
+        startedDate: '',
       };
     }
 
@@ -87,26 +100,24 @@ const Index = () => {
     const totalTrades = allTradeLogs.length;
     const winningTrades = allTradeLogs.filter((log: any) => log.pnl > 0).length;
     const winRate = totalTrades > 0 ? ((winningTrades / totalTrades) * 100).toFixed(1) : '0.0';
-    
+
     // Calculate total PNL from all trades
     const totalPnl = allTradeLogs.reduce((sum: number, log: any) => sum + (log.pnl || 0), 0);
-    
+
     // Calculate total PNL percentage (based on initial $1000)
     const INITIAL_BALANCE = 1000;
     const totalPnlPercent = ((totalPnl / INITIAL_BALANCE) * 100).toFixed(2);
-    
-    // Get started date (first trade date)
-    const startedDate = allTradeLogs.length > 0 
-      ? (allTradeLogs[0] as any).trade_date 
-      : '';
 
-    return { 
-      chartData: formattedData, 
-      totalPnl, 
-      totalTrades, 
+    // Get started date (first trade date)
+    const startedDate = allTradeLogs.length > 0 ? (allTradeLogs[0] as any).trade_date : '';
+
+    return {
+      chartData: formattedData,
+      totalPnl,
+      totalTrades,
       winRate,
       totalPnlPercent,
-      startedDate
+      startedDate,
     };
   };
 
@@ -145,15 +156,13 @@ const Index = () => {
 
     try {
       // Insert contact message into database
-      const { error: dbError } = await supabase
-        .from('contact_messages' as any)
-        .insert([
-          {
-            name: contactForm.name,
-            email: contactForm.email,
-            message: contactForm.message,
-          },
-        ] as any);
+      const { error: dbError } = await supabase.from('contact_messages' as any).insert([
+        {
+          name: contactForm.name,
+          email: contactForm.email,
+          message: contactForm.message,
+        },
+      ] as any);
 
       if (dbError) throw dbError;
 
@@ -182,10 +191,10 @@ const Index = () => {
           // Don't throw - email failure shouldn't prevent form submission success
         }
       }
-      
+
       toast({
         title: 'Message sent!',
-        description: 'Thank you for reaching out. We\'ll get back to you soon.',
+        description: "Thank you for reaching out. We'll get back to you soon.",
       });
 
       // Reset form
@@ -203,8 +212,8 @@ const Index = () => {
   };
 
   return (
-    <div className='min-h-screen flex flex-col'>
-      <header className='border-b'>
+    <div className='min-h-screen flex flex-col relative'>
+      <header className='border-b absolute z-50 w-full '>
         <div className='container mx-auto px-4 h-16 flex items-center justify-between'>
           <Link to='/'>
             <h1 className='text-xl font-bold text-primary cursor-pointer hover:opacity-80 transition-opacity'>TradeStation Nexus</h1>
@@ -216,27 +225,27 @@ const Index = () => {
       </header>
 
       <main className='flex-1'>
-        <section className='py-20 md:py-32 relative overflow-hidden'>
+        <section className='relative overflow-hidden min-h-screen flex items-center justify-center'>
           {/* Animated Background Elements */}
           <div className='absolute inset-0 -z-10'>
             {/* Animated Gradient Background */}
             <div className='absolute inset-0 bg-gradient-to-br from-primary/20 via-secondary/10 to-primary/20 animate-gradient-shift'></div>
-            
+
             {/* Grid Pattern Overlay */}
             <div className='absolute inset-0 bg-grid-pattern opacity-30 dark:opacity-20'></div>
-            
+
             {/* Animated Orbs */}
             <div className='absolute top-1/4 left-1/4 w-96 h-96 bg-primary/30 rounded-full blur-3xl animate-float-slow'></div>
             <div className='absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/30 rounded-full blur-3xl animate-float-reverse'></div>
             <div className='absolute top-1/2 right-1/3 w-72 h-72 bg-primary/20 rounded-full blur-3xl animate-float'></div>
-            
+
             {/* Animated Lines */}
             <div className='absolute top-0 left-0 w-full h-full'>
               <div className='absolute top-1/4 left-0 w-px h-1/2 bg-gradient-to-b from-transparent via-primary/40 to-transparent animate-pulse'></div>
               <div className='absolute top-0 right-1/4 w-1/2 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent animate-pulse delay-1000'></div>
             </div>
           </div>
-          
+
           {/* Content */}
           <div className='container mx-auto px-4 text-center relative z-10'>
             <h2 className='text-4xl md:text-6xl font-bold mb-6'>
@@ -255,7 +264,7 @@ const Index = () => {
           </div>
         </section>
 
-        <section className='py-20 bg-muted/50'>
+        <section className='py-20'>
           <div className='container mx-auto px-4'>
             <h2 className='text-3xl md:text-4xl font-bold text-center mb-4'>Platform Performance</h2>
             <p className='text-center text-muted-foreground mb-12 max-w-2xl mx-auto'>Real trading results from historical data</p>
@@ -270,9 +279,6 @@ const Index = () => {
               </div>
             ) : null}
           </div>
-        </section>
-
-        <section className='py-20'>
           <div className='container mx-auto px-4'>
             <h2 className='text-3xl md:text-4xl font-bold text-center mb-4'>Symbol Performance History</h2>
             <p className='text-center text-muted-foreground mb-12 max-w-2xl mx-auto'>
@@ -284,8 +290,8 @@ const Index = () => {
             ) : (
               <div className='grid md:grid-cols-3 gap-6'>
                 {dataM2K.chartData.length > 0 ? (
-                  <TradingChart 
-                    symbol='M2K' 
+                  <TradingChart
+                    symbol='M2K'
                     data={dataM2K.chartData}
                     winRate={dataM2K.winRate}
                     totalPnlPercent={dataM2K.totalPnlPercent}
@@ -300,8 +306,8 @@ const Index = () => {
                 )}
 
                 {dataMES.chartData.length > 0 ? (
-                  <TradingChart 
-                    symbol='MES' 
+                  <TradingChart
+                    symbol='MES'
                     data={dataMES.chartData}
                     winRate={dataMES.winRate}
                     totalPnlPercent={dataMES.totalPnlPercent}
@@ -316,8 +322,8 @@ const Index = () => {
                 )}
 
                 {dataMNQ.chartData.length > 0 ? (
-                  <TradingChart 
-                    symbol='MNQ' 
+                  <TradingChart
+                    symbol='MNQ'
                     data={dataMNQ.chartData}
                     winRate={dataMNQ.winRate}
                     totalPnlPercent={dataMNQ.totalPnlPercent}
@@ -335,7 +341,7 @@ const Index = () => {
           </div>
         </section>
 
-        <section className='py-20 bg-muted/50'>
+        <section className='py-20'>
           <div className='container mx-auto px-4'>
             <div className='grid md:grid-cols-3 gap-8'>
               <div className='bg-card p-6 rounded-lg border'>
@@ -441,10 +447,8 @@ const Index = () => {
                 {/* Social Links */}
                 <div className='bg-card p-6 rounded-lg border'>
                   <h3 className='text-xl font-semibold mb-4'>Connect with us</h3>
-                  <p className='text-muted-foreground mb-6'>
-                    Follow us on social media to stay updated with the latest news and updates.
-                  </p>
-                  
+                  <p className='text-muted-foreground mb-6'>Follow us on social media to stay updated with the latest news and updates.</p>
+
                   <div className='space-y-4'>
                     <a
                       href='https://t.me'
@@ -507,10 +511,7 @@ const Index = () => {
 
                   <div className='mt-6 pt-6 border-t'>
                     <p className='text-sm text-muted-foreground mb-2'>Email us directly</p>
-                    <a
-                      href='mailto:tinytotos99@gmail.com'
-                      className='text-primary hover:underline font-medium'
-                    >
+                    <a href='mailto:tinytotos99@gmail.com' className='text-primary hover:underline font-medium'>
                       tinytotos99@gmail.com
                     </a>
                   </div>

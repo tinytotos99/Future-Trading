@@ -171,6 +171,8 @@ export const fetchAllTradeLogs = async (symbol: Symbol) => {
       .order('trade_date', { ascending: true })
       .range(from, from + pageSize - 1);
 
+    console.log(`[${symbol}] Fetched batch ${from / pageSize + 1} of ${Math.ceil(data.length / pageSize)}`);
+
     if (error) {
       console.error(`Error fetching all trade logs for ${symbol}:`, error);
       break;

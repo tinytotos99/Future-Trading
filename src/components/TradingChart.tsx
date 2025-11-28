@@ -182,15 +182,15 @@ export const TradingChart = ({
 
         {/* Action Buttons */}
         <div className="flex gap-3">
-          <Button 
-            variant="outline" 
-            size="sm" 
-            className="flex-1 bg-background/50 hover:bg-background/80 hover:text-foreground/80"
-            onClick={() => window.open('https://github.com/tinytotos99/M2K-MES-MNQ-Future-Trading', '_blank', 'noopener,noreferrer')}
+          <a
+            href="https://github.com/tinytotos99/M2K-MES-MNQ-Future-Trading"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1 flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium rounded-md border border-border bg-background/50 hover:bg-background/80 hover:text-foreground/60 transition-colors"
           >
-            <Github className="h-4 w-4 mr-2" />
+            <Github className="h-4 w-4" />
             GitHub
-          </Button>
+          </a>
           <Button 
             size="sm" 
             className="flex-1 bg-primary hover:bg-primary/90"

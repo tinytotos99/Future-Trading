@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { ThemeToggle } from "@/components/ThemeToggle";
+import { Header } from "@/components/Header";
 
 const Auth = () => {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -79,18 +79,7 @@ const Auth = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="border-b">
-        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <Link to="/">
-            <h1 className="text-xl font-bold text-primary cursor-pointer hover:opacity-80 transition-opacity">
-              TradeStation Nexus
-            </h1>
-          </Link>
-          <div className="flex items-center gap-4">
-            <ThemeToggle />
-          </div>
-        </div>
-      </header>
+      <Header position="static" />
 
       <div className="flex-1 flex flex-col items-center justify-center p-4">
         <Card className="w-full max-w-md">

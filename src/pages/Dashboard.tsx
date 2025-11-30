@@ -1,14 +1,12 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useLocation, Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 import { TradingChart } from "@/components/TradingChart";
 import { TradeNotification } from "@/components/TradeNotification";
 import { StatsCard } from "@/components/StatsCard";
 import { TradesTable } from "@/components/TradesTable";
-import { ThemeToggle } from "@/components/ThemeToggle";
-import { Activity, DollarSign, TrendingUp, Radio, LogOut, LayoutDashboard, FileText } from "lucide-react";
+import { Header } from "@/components/Header";
+import { Activity, DollarSign, TrendingUp } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { useToast } from "@/hooks/use-toast";
 
 // Mock data generators
 const generateChartData = (symbol: string) => {
@@ -35,8 +33,6 @@ const mockTrades = [
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const { toast } = useToast();
   const [user, setUser] = useState<any>(null);
   const [chartData2K] = useState(generateChartData("2K"));
   const [chartDataMES] = useState(generateChartData("MES"));
@@ -63,58 +59,17 @@ const Dashboard = () => {
     return () => subscription.unsubscribe();
   }, [navigate]);
 
-  const handleSignOut = async () => {
-    await supabase.auth.signOut();
-    toast({
-      title: "Signed out",
-      description: "You have been signed out successfully.",
-    });
-  };
-
   if (!user) return null;
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
-      {/* Header with Navigation */}
-      <header className="border-b sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <Link to="/dashboard">
-            <h1 className="text-xl font-bold text-primary cursor-pointer hover:opacity-80 transition-opacity">
-              TradeStation Nexus
-            </h1>
-          </Link>
-          <div className="flex items-center gap-4">
-            <nav className="flex items-center gap-2">
-              <Button
-                variant={location.pathname === "/dashboard" ? "default" : "ghost"}
-                size="sm"
-                onClick={() => navigate("/dashboard")}
-                className="flex items-center gap-2"
-              >
-                <LayoutDashboard className="h-4 w-4" />
-                Dashboard
-              </Button>
-              <Button
-                variant={location.pathname === "/logs" ? "default" : "ghost"}
-                size="sm"
-                onClick={() => navigate("/logs")}
-                className="flex items-center gap-2"
-              >
-                <FileText className="h-4 w-4" />
-                Logs
-              </Button>
-            </nav>
-            <div className="flex items-center gap-2 px-4 py-2 bg-gradient-card border border-border rounded-lg">
-              <div className="w-2 h-2 bg-success rounded-full animate-pulse"></div>
-              <span className="text-sm font-medium text-foreground">Live</span>
-            </div>
-            <ThemeToggle />
-            <Button variant="ghost" size="icon" onClick={handleSignOut}>
-              <LogOut className="h-5 w-5" />
-            </Button>
-          </div>
-        </div>
-      </header>
+      <Header 
+        isAuthenticated={true}
+        showNavigation={true}
+        showLiveIndicator={true}
+        position="sticky"
+        logoLink="/dashboard"
+      />
 
       {/* Main Content */}
       <main className="flex-1 p-6">

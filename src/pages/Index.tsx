@@ -17,8 +17,7 @@ import {
   MessageSquare,
   Github,
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { ThemeToggle } from '@/components/ThemeToggle';
+import { Header } from '@/components/Header';
 import { TradingChart } from '@/components/TradingChart';
 import { StatsCard } from '@/components/StatsCard';
 import { fetchTradeLogs, fetchAllTradeLogs, generateChartData, Symbol } from '@/utils/importTradeLogs';
@@ -213,16 +212,7 @@ const Index = () => {
 
   return (
     <div className='min-h-screen flex flex-col relative'>
-      <header className='border-b absolute z-50 w-full '>
-        <div className='container mx-auto px-4 h-16 flex items-center justify-between'>
-          <Link to='/'>
-            <h1 className='text-xl font-bold text-primary cursor-pointer hover:opacity-80 transition-opacity'>TradeStation Nexus</h1>
-          </Link>
-          <div className='flex items-center gap-4'>
-            <ThemeToggle />
-          </div>
-        </div>
-      </header>
+      <Header position="absolute" />
 
       <main className='flex-1'>
         <section className='relative overflow-hidden min-h-screen flex items-center justify-center'>
